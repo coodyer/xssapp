@@ -23,13 +23,13 @@ import com.xss.web.util.StringUtils;
 
 /**
  * AOP缓存
+ * 
  * @author Administrator
  *
  */
 @Aspect
 @Component
 public class CacheAspect {
-
 
 	@Resource
 	private BaseCache baseCache;
@@ -121,17 +121,19 @@ public class CacheAspect {
 			}
 			for (CacheWipe wipe : handles) {
 				try {
-					String key=wipe.key();
+					String key = wipe.key();
 					if (StringUtils.isNullOrEmpty(wipe.key())) {
 						key = (AspectUtil.getMethodCacheKey(method));
 					}
-						String cacheKey = AspectUtil.getFieldKey(method, paras,
+					if (wipe.isModel() == true) {
+						CacheTimerHandler.removeCacheFuzzy(key);
+						continue;
+					}
+					if(!StringUtils.isNullOrEmpty(wipe.fields())){
+						key=AspectUtil.getFieldKey(method, paras,
 								key, wipe.fields());
-						if(wipe.isModel()==true){
-							CacheTimerHandler.removeCacheFuzzy(cacheKey);
-							continue;
-						}
-						CacheTimerHandler.removeCache(cacheKey);
+					}
+					CacheTimerHandler.removeCache(key);
 				} catch (Exception e) {
 				}
 			}
@@ -140,8 +142,11 @@ public class CacheAspect {
 			sw.stop();
 		}
 	}
-	
+
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println(URLDecoder.decode("jobarea%7E%60000000%7C%21ord_field%7E%600%7C%21recentSearch0%7E%601%A1%FB%A1%FA000000%2C00%A1%FB%A1%FA000000%A1%FB%A1%FA0000%A1%FB%A1%FA00%A1%FB%A1%FA9%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA%B5%E7%C9%CC%A1%FB%A1%FA2%A1%FB%A1%FA%A1%FB%A1%FA-1%A1%FB%A1%FA1474782052%A1%FB%A1%FA0%A1%FB%A1%FA%A1%FB%A1%FA%7C%21","GBK"));
+		System.out
+				.println(URLDecoder
+						.decode("jobarea%7E%60000000%7C%21ord_field%7E%600%7C%21recentSearch0%7E%601%A1%FB%A1%FA000000%2C00%A1%FB%A1%FA000000%A1%FB%A1%FA0000%A1%FB%A1%FA00%A1%FB%A1%FA9%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA99%A1%FB%A1%FA%B5%E7%C9%CC%A1%FB%A1%FA2%A1%FB%A1%FA%A1%FB%A1%FA-1%A1%FB%A1%FA1474782052%A1%FB%A1%FA0%A1%FB%A1%FA%A1%FB%A1%FA%7C%21",
+								"GBK"));
 	}
 }
