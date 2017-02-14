@@ -36,36 +36,24 @@ public class ModuleCache extends BaseCache {
 		Module module = (Module) moduleService.get(Module.class, id);
 		return module;
 	}
-	@CacheWipe(key=CacheFinal.USER_MODULE_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_MODULE_REPLACE_KEY)
-	@CacheWipe(key=CacheFinal.USER_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.SYS_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ALL_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.MODULE_PAGER_KEY)
+	@CacheWipe(key=CacheFinal.USER_MODULE_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_MODULE_REPLACE_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SYS_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ALL_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.MODULE_PAGER_KEY,isModel=true)
 	public void del(Integer... moduleId) {
 		moduleService.cleanModule(moduleId);
 		moduleService.deleteModule(moduleId);
 	}
-	@CacheWipe(key=CacheFinal.USER_MODULE_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_MODULE_REPLACE_KEY)
-	@CacheWipe(key=CacheFinal.USER_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.SYS_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ALL_MODULE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.MODULE_PAGER_KEY)
+	@CacheWipe(key=CacheFinal.USER_MODULE_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_MODULE_REPLACE_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SYS_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ALL_MODULE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.MODULE_PAGER_KEY,isModel=true)
 	public void save(Module module) {
 		moduleService.saveOrUpdate(module);
-		String key = CacheFinal.USER_MODULE_INFO_KEY.toString();
-		removeCacheFuzzy(key);
-		key = CacheFinal.USER_MODULE_REPLACE_KEY.toString();
-		removeCacheFuzzy(key);
-		key = CacheFinal.USER_MODULE_LIST_KEY.toString();
-		removeCacheFuzzy(key);
-		key = CacheFinal.SYS_MODULE_LIST_KEY.toString();
-		removeCacheFuzzy(key);
-		key = CacheFinal.ALL_MODULE_LIST_KEY.toString();
-		removeCacheFuzzy(key);
-		key = CacheFinal.MODULE_PAGER_KEY.toString();
-		removeCacheFuzzy(key);
 	}
 	@CacheWrite(key=CacheFinal.USER_MODULE_REPLACE_KEY ,validTime=65)
 	public Module getModuleReplaceCurr(Integer id, Integer userId, String title) {

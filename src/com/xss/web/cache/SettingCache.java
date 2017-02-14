@@ -19,7 +19,7 @@ public class SettingCache extends BaseCache {
 		Setting setting = (Setting) settingService.loadFirst(Setting.class);
 		return setting;
 	}
-	@CacheWipe(key=CacheFinal.SETTING_KEY)
+	@CacheWipe(key=CacheFinal.SETTING_KEY,isModel=true)
 	public void saveSetting(Setting setting) {
 		settingService.saveOrUpdate(setting);
 		String key = CacheFinal.SETTING_KEY.toString();

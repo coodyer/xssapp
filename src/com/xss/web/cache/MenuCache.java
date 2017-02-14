@@ -34,15 +34,15 @@ public class MenuCache extends BaseCache {
 		Menus menu = (Menus) baseService.get(Menus.class, id);
 		return menu;
 	}
-	@CacheWipe(key=CacheFinal.MENU_INFO_KEY)
-	@CacheWipe(key=CacheFinal.MENU_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY)
+	@CacheWipe(key=CacheFinal.MENU_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.MENU_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY,isModel=true)
 	public void save(Menus menu) {
 		baseService.saveOrUpdate(menu);
 	}
-	@CacheWipe(key=CacheFinal.MENU_INFO_KEY)
-	@CacheWipe(key=CacheFinal.MENU_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY)
+	@CacheWipe(key=CacheFinal.MENU_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.MENU_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY,isModel=true)
 	public void delete(Integer id) {
 		menuService.delMenu(id);
 	}

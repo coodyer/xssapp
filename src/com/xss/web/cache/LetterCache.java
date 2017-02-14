@@ -64,13 +64,13 @@ public class LetterCache extends BaseCache {
 				.findByObject(Letter.class, where);
 		return letters;
 	}
-	@CacheWipe(key=CacheFinal.LETTER_PAGER_KEY)
-	@CacheWipe(key=CacheFinal.LETTER_PARAS_KEY)
-	@CacheWipe(key=CacheFinal.LETTER_INFO_KEY)
-	@CacheWipe(key=CacheFinal.LETTER_CONTEXT_KEY)
-	@CacheWipe(key=CacheFinal.LETTER_COUNT_KEY)
-	@CacheWipe(key=CacheFinal.USER_PROJECT_LETER_COUNT_KEY)
-	@CacheWipe(key=CacheFinal.PAGER_COUNT_CACHE)
+	@CacheWipe(key=CacheFinal.LETTER_PAGER_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.LETTER_PARAS_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.LETTER_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.LETTER_CONTEXT_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.LETTER_COUNT_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_LETER_COUNT_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.PAGER_COUNT_CACHE,isModel=true)
 	public void delLetter(Integer... letteryId) {
 		letterService.delLetterById(letteryId);
 		String key = CacheFinal.LETTER_LIST_KEY.toString();

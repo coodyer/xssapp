@@ -14,5 +14,7 @@ public @interface CacheWipe {
 	String key() ;
 	
 	String [] fields() default "";
+	
+	boolean isModel() default false;
 
 }

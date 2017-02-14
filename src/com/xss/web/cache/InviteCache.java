@@ -33,7 +33,7 @@ public class InviteCache extends BaseCache {
 				"id", true);
 		return invites;
 	}
-	@CacheWipe(key=CacheFinal.INVITE_LIST_KEY)
+	@CacheWipe(key=CacheFinal.INVITE_LIST_KEY,isModel=true)
 	public void importInvite(Integer num) {
 		List<Invite> invites = new ArrayList<Invite>();
 		Invite invite = null;
@@ -46,8 +46,8 @@ public class InviteCache extends BaseCache {
 		}
 		baseService.batchSave(invites);
 	}
-	@CacheWipe(key=CacheFinal.INVITE_INFO_KEY)
-	@CacheWipe(key=CacheFinal.INVITE_LIST_KEY)
+	@CacheWipe(key=CacheFinal.INVITE_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.INVITE_LIST_KEY,isModel=true)
 	public void delete(Integer... id) {
 		inviteService.delete(id);
 	}

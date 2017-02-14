@@ -17,15 +17,15 @@ public class RoleCache extends BaseCache {
 		Role roles = (Role) baseService.get(Role.class, roleId);
 		return roles;
 	}
-	@CacheWipe(key=CacheFinal.ROLE_INFO_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY)
+	@CacheWipe(key=CacheFinal.ROLE_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY,isModel=true)
 	public void save(Role role) {
 		baseService.saveOrUpdate(role);
 	}
-	@CacheWipe(key=CacheFinal.ROLE_INFO_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_LIST_KEY)
-	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY)
+	@CacheWipe(key=CacheFinal.ROLE_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.ROLE_MENU_LIST_KEY,isModel=true)
 	public void del(Integer roleId) {
 		baseService.delete(Role.class, roleId);
 	}

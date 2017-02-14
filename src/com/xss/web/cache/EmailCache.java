@@ -23,7 +23,7 @@ public class EmailCache extends BaseCache {
 		return email;
 	}
 	@CacheWipe(key=CacheFinal.EMAIL_INFO_KEY,fields="email.id")
-	@CacheWipe(key=CacheFinal.LETTER_LIST_KEY)
+	@CacheWipe(key=CacheFinal.LETTER_LIST_KEY,isModel=true)
 	public void save(Email email) {
 		baseService.saveOrUpdate(email);
 	}

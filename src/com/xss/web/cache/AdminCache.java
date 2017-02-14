@@ -36,7 +36,7 @@ public class AdminCache extends BaseCache {
 		Admin admin = (Admin) baseService.get(Admin.class, id);
 		return admin;
 	}
-	@CacheWipe(key=CacheFinal.ADMIN_LIST_KEY)
+	@CacheWipe(key=CacheFinal.ADMIN_LIST_KEY,isModel=true)
 	@CacheWipe(key=CacheFinal.ADMIN_INFO_KEY,fields="admin.id")
 	@CacheWipe(key=CacheFinal.ADMIN_INFO_KEY,fields="admin.userName")
 	public void save(Admin admin) {

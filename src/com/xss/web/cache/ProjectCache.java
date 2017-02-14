@@ -48,10 +48,10 @@ public class ProjectCache extends BaseCache {
 		return count;
 
 	}
-	@CacheWipe(key=CacheFinal.USER_PROJECT_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_PROJECT_REPLACE_KEY)
-	@CacheWipe(key=CacheFinal.USER_PROJECT_LIST_KEY)
-	@CacheWipe(key=CacheFinal.PROJECT_PAGER_KEY)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_REPLACE_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.PROJECT_PAGER_KEY,isModel=true)
 	public void save(Project project) {
 		if (StringUtils.isNullOrEmpty(project)) {
 			return;
@@ -59,10 +59,10 @@ public class ProjectCache extends BaseCache {
 		projectService.saveOrUpdate(project);
 	}
 
-	@CacheWipe(key=CacheFinal.USER_PROJECT_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_PROJECT_REPLACE_KEY)
-	@CacheWipe(key=CacheFinal.USER_PROJECT_LIST_KEY)
-	@CacheWipe(key=CacheFinal.PROJECT_PAGER_KEY)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_REPLACE_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_PROJECT_LIST_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.PROJECT_PAGER_KEY,isModel=true)
 	public void del(Integer... id) {
 		if (StringUtils.isNullOrEmpty(id)) {
 			return;

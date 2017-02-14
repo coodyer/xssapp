@@ -28,9 +28,9 @@ public class SuffixCache extends BaseCache {
 		Suffix suffix = SuffixService.getSuffix(id);
 		return suffix;
 	}
-	@CacheWipe(key=CacheFinal.SITE_TMP_SUFFIX_KEY)
-	@CacheWipe(key=CacheFinal.SITE_SUFFIX_KEY)
-	@CacheWipe(key=CacheFinal.SITE_DEF_SUFFIX_KEY)
+	@CacheWipe(key=CacheFinal.SITE_TMP_SUFFIX_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SITE_SUFFIX_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SITE_DEF_SUFFIX_KEY,isModel=true)
 	public void updateSuffix(Suffix suffix) {
 		SuffixService.updateSuffix(suffix);
 	}
@@ -49,9 +49,9 @@ public class SuffixCache extends BaseCache {
 		List<String> list = SuffixService.loadStaSuffix();
 		return list;
 	}
-	@CacheWipe(key=CacheFinal.SITE_TMP_SUFFIX_KEY)
-	@CacheWipe(key=CacheFinal.SITE_SUFFIX_KEY)
-	@CacheWipe(key=CacheFinal.SITE_DEF_SUFFIX_KEY)
+	@CacheWipe(key=CacheFinal.SITE_TMP_SUFFIX_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SITE_SUFFIX_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.SITE_DEF_SUFFIX_KEY,isModel=true)
 	public void updateSuffix(Integer[] suffix) {
 		SuffixService.updateSuffix(suffix);
 	}

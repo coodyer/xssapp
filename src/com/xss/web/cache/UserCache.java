@@ -63,16 +63,16 @@ public class UserCache extends BaseCache {
 		User user = (User) userService.findFirstByField(User.class, "uuid", uuid);
 		return user;
 	}
-	@CacheWipe(key=CacheFinal.USER_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_INFO_ID_KEY)
-	@CacheWipe(key=CacheFinal.USER_LIST_KEY)
+	@CacheWipe(key=CacheFinal.USER_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_INFO_ID_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_LIST_KEY,isModel=true)
 	public void save(User user) {
 		userService.saveOrUpdate(user);
 	}
 	@SuppressWarnings("unchecked")
-	@CacheWipe(key=CacheFinal.USER_INFO_KEY)
-	@CacheWipe(key=CacheFinal.USER_INFO_ID_KEY)
-	@CacheWipe(key=CacheFinal.USER_LIST_KEY)
+	@CacheWipe(key=CacheFinal.USER_INFO_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_INFO_ID_KEY,isModel=true)
+	@CacheWipe(key=CacheFinal.USER_LIST_KEY,isModel=true)
 	public void delete(Integer id) {
 		// 删除模块
 		List<Module> modules = moduleCache.loadUserModules(id);
