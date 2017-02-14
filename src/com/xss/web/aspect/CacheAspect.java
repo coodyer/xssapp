@@ -19,9 +19,6 @@ import com.xss.web.annotation.CacheWrite;
 import com.xss.web.base.cache.CacheTimerHandler;
 import com.xss.web.cache.base.BaseCache;
 import com.xss.web.util.AspectUtil;
-import com.xss.web.util.ConcurrentUtil;
-import com.xss.web.util.PropertUtil;
-import com.xss.web.util.SpringContextHelper;
 import com.xss.web.util.StringUtils;
 
 /**
@@ -130,6 +127,10 @@ public class CacheAspect {
 					}
 						String cacheKey = AspectUtil.getFieldKey(method, paras,
 								key, wipe.fields());
+						if(wipe.isModel()==true){
+							CacheTimerHandler.removeCacheFuzzy(cacheKey);
+							continue;
+						}
 						CacheTimerHandler.removeCache(cacheKey);
 				} catch (Exception e) {
 				}
