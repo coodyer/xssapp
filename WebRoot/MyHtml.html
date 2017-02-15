@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang=en-us>
+<head>
+<meta charset=UTF-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1">
+<meta name=viewport
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>确认订单</title>
+<link rel=stylesheet href=http://bm.carun51.com/base-api/dist/css//order.min.css>
+<script>
+	(function() {
+		document.addEventListener('DOMContentLoaded', function() {
+			var html = document.documentElement;
+			var deviceWidth = html.clientWidth;
+			if (deviceWidth > 375) {
+				deviceWidth = 375;
+			}
+			html.style.fontSize = Math.ceil(deviceWidth / 3.75) + 'px';
+		}, false);
+	})();
+</script>
+</head>
+<body>
+	<div class="wrapper has-foot" data-temp=order></div>
+	<script type=text/template id=order><div class="order-sketch"> <header class="cy-section-header cy-border-bottom"> <h2>订单详情</h2> </header> <div class="cy-form-group"> <label class="cy-form-name">订单名称：</label> <div class="cy-form-value text right">${name}</div> </div> <div class="cy-form-group"> <label class="cy-form-name">订单编号：</label> <div class="cy-form-value text right">${no}</div> </div> <div class="cy-form-group"> <label class="cy-form-name">应付金额：</label> <div class="cy-form-value right text orange">￥${money}</div> </div> </div> <!-- 支付方式 --> <div class="pay-type"> <header class="cy-section-header cy-border-bottom"> <h2>支付方式</h2> </header> <div class="pay-type-list"> <div class="cy-form-group"> <label class="cy-form-name">微信</label> <div class="cy-form-value right"> <label class="cy-radio"> <input type="radio" name="paytype" checked value="wechat" required> </label> </div> </div> </div> </div> <!--//End --> <div class="order-pay-btn"> <a class="cy-button orange block angle" href="javascript:;" ${v-on:touchstart="pay"}>支付</a> </div></script>
+	<script src="http://bm.carun51.com/base-api/dist/js/lib/zepto.js?rev=4071b21da938ba005eb5c1f798a89bdf"></script>
+	<script src="http://test.51duobei.com/h5/order.js?rev=092a87fbf55dddbfd543fa2ccfc31ead"></script>
+</body>
+</html>
