@@ -6,16 +6,8 @@ import java.lang.reflect.Method;
 public class ChileTest extends PersionTest{
 
 	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Method [] methods=SuperTest.class.getDeclaredMethods();
-		for(Method method:methods){
-			SuperTest test=SuperTest.class.cast(new ChileTest());
-			method.setAccessible(true);
-			method.invoke(test, null);
-		}
+		PersionTest t=(PersionTest)(new SuperTest());
+		t.test1();
 	}
 	
-	
-	private void test2(){
-		System.out.println("super 2");
-	}
 }

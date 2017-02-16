@@ -110,6 +110,36 @@ public class FileUtils {
 	public static String readFile(String path) {
 		return readFile(path, "utf-8");
 	}
+	public static String readFileLine(String path, String encode,Integer lineNum) {
+		InputStreamReader read = null;
+		FileInputStream in = null;
+		BufferedReader bufferedReader = null;
+		try {
+			File file = new File(path);
+			if (file.isFile() && file.exists()) { // 判断文件是否存在
+				in = new FileInputStream(file);
+				read = new InputStreamReader(in, encode);// 考虑到编码格式
+				bufferedReader = new BufferedReader(read);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				int i=0;
+				while (((line = bufferedReader.readLine()) != null)&&i<lineNum) {
+					sb.append(line).append("\r\n");
+					i++;
+				}
+				return sb.toString();
+			}
+		} catch (Exception e) {
+		} finally {
+			try {
+				bufferedReader.close();
+				read.close();
+				in.close();
+			} catch (Exception e) {
+			}
+		}
+		return null;
+	}
 	public static String readFile(String path, String encode) {
 		InputStreamReader read = null;
 		FileInputStream in = null;

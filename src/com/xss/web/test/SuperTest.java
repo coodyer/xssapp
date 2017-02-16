@@ -1,8 +1,8 @@
 package com.xss.web.test;
 
-public abstract class SuperTest {
+public class SuperTest {
 
-	private void test1(){
-		System.out.println("super  test");
+	public void test1(){
+		System.out.println("s");
 	}
 }
