@@ -17,7 +17,7 @@ import com.xss.web.util.StringUtils;
  * 
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 @Service
 public class BaseService {

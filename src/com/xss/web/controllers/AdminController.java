@@ -364,12 +364,15 @@ public class AdminController extends BaseController {
 		printMsg(res, new MsgEntity(0, "操作成功"));
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping
 	@Power(value = "letterSetting", resType = PowerEnum.PAGE)
 	public String letterList(HttpServletRequest req, HttpServletResponse res) {
+		
 		Letter letter = (Letter) getBeanAll(Letter.class);
 		Pager<Letter> pager = (Pager<Letter>) getBeanAll(Pager.class);
 		pager = letterCache.getLetters(letter, pager);
+		
 		setAttribute("pager", pager);
 		keepParas();
 		return DIR + "letter_list";

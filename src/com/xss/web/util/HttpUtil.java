@@ -284,7 +284,7 @@ public class HttpUtil {
 			return httpBaseConn(url, "POST", postData, encode, null, null,
 					headers);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -518,12 +518,12 @@ public class HttpUtil {
 
 			HttpURLConnection conn = (HttpURLConnection) serverUrl
 					.openConnection();
-			conn.addRequestProperty("Referer", serverUrl.toString());
-			conn.addRequestProperty(
-					"Accept",
-					"application/json, text/plain, */*");
-			conn.addRequestProperty("Content-type",
-					"application/x-www-form-urlencoded");
+//			conn.addRequestProperty("Referer", serverUrl.toString());
+//			conn.addRequestProperty(
+//					"Accept",
+//					"application/json, text/plain, */*");
+//			conn.addRequestProperty("Content-type",
+//					"application/x-www-form-urlencoded");
 			
 			return conn;
 		} catch (Exception e) {

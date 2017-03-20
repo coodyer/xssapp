@@ -12,7 +12,7 @@ import com.xss.web.util.PropertUtil;
  * 容器，基于MAP封装
  * @author WebSOS
  * QQ:644556636
- * bkkill.com
+ * 54sb.org
  */
 public class Record implements Map<String, Object> {
 	private Map<String, Object> map = new HashMap<String, Object>();

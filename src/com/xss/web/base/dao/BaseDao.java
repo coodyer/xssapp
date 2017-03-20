@@ -37,7 +37,7 @@ import com.xss.web.util.StringUtils;
  * @remark DAO基础方法
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 @Service
 @SuppressWarnings("unchecked")

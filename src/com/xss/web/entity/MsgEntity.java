@@ -6,7 +6,7 @@ import com.xss.web.model.base.BaseModel;
  * @remark 消息机制容器。
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 public class MsgEntity extends BaseModel {
 

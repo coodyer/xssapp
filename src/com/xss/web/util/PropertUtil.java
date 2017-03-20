@@ -41,7 +41,7 @@ import com.xss.web.entity.Record;
  * @remark 对象操作工具,多反射。
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 public class PropertUtil {
 	static Logger logger = Logger.getLogger(PropertUtil.class);

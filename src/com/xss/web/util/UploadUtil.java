@@ -19,7 +19,7 @@ import com.xss.web.entity.Record;
  * 2014-09-16
  * @author WebSOS
  * QQ:644556636
- * bkkill.com
+ * 54sb.org
  */
 public class UploadUtil {
 	private static final String[] suffix = { "gif", "jpg", "jpeg", "bmp", "png" };

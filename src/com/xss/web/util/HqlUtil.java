@@ -14,7 +14,7 @@ import com.xss.web.model.base.BaseModel;
  * @remark HQL处理
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 public class HqlUtil {
 	private static HqlEntity getHqlWhere(Object obj, String fatherBean,

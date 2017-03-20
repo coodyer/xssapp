@@ -33,7 +33,7 @@ import com.xss.web.model.base.BaseModel;
  * @remark HTTP工具类。
  * @author WebSOS
  * @email 644556636@qq.com
- * @blog bkkill.com
+ * @blog 54sb.org
  */
 public class RequestUtil {
 
