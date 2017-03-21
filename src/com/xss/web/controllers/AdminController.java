@@ -624,7 +624,36 @@ public class AdminController extends BaseController {
 		setAttribute("suffixList", suffixList);
 		return DIR + "suffix";
 	}
-
+	@RequestMapping
+	@Power(value = "suffixSetting", resType = PowerEnum.JSON)
+	public void deleteSuffix(HttpServletResponse res) {
+		Integer id=getParaInteger("id");
+		Suffix suffix=suffixCache.getSuffix(id);
+		if(suffix.getStatus()==2){
+			printMsg(res, new MsgEntity(-1, "默认后缀不可删除"));
+			return;
+		}
+		suffixCache.delSuffix(suffix);
+		printMsg(res, new MsgEntity(0, "操作成功"));
+		return;
+	}
+	@RequestMapping
+	@Power(value = "suffixSetting", resType = PowerEnum.PAGE)
+	public String addSuffix(HttpServletRequest req) {
+		return DIR + "suffix_add";
+	}
+	@RequestMapping
+	@Power(value = "suffixSetting", resType = PowerEnum.JSON)
+	public void addSuffixRun(HttpServletResponse res) {
+		String suffix=getPara("suffix");
+		String isOpen=getPara("isOpen");
+		Suffix suffixModel=new Suffix();
+		suffixModel.setSuffix(suffix);
+		suffixModel.setStatus(StringUtils.toInteger(isOpen));
+		suffixCache.addSuffix(suffixModel);
+		printMsg(res, new MsgEntity(0, "操作成功"));
+		return;
+	}
 	@RequestMapping
 	@Power(value = "suffixSetting", resType = PowerEnum.JSON)
 	public void updateSuffix(HttpServletRequest req, HttpServletResponse res)

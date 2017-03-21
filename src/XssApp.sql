@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2017-03-20 12:07:42
+Date: 2017-03-20 19:25:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('2', 'admin', '6addc798f225c53ea1f3ef1884a21ff7', '1');
+INSERT INTO `admin` VALUES ('2', 'admin', 'd70488316f90e4b3b14f532f197adfa8', '1');
 
 -- ----------------------------
 -- Table structure for email
@@ -129,31 +129,30 @@ CREATE TABLE `menus` (
   `type` int(1) DEFAULT '0',
   `up_id` int(11) DEFAULT NULL,
   `seq` int(11) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `menu_up_id_fk` (`up_id`),
   CONSTRAINT `menu_up_id_fk` FOREIGN KEY (`up_id`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menus
 -- ----------------------------
-INSERT INTO `menus` VALUES ('1', '首页', 'admin/base', '0', null, '0');
-INSERT INTO `menus` VALUES ('2', '系统管理', '#', '0', null, '1');
-INSERT INTO `menus` VALUES ('3', '基本设置', 'admin/setting', '1', '2', '0');
-INSERT INTO `menus` VALUES ('4', '后台用户管理', 'admin/sysUserAdmin', '1', '18', '1');
-INSERT INTO `menus` VALUES ('5', '角色管理', 'admin/roleList', '1', '18', '2');
-INSERT INTO `menus` VALUES ('6', '网站后缀设置', 'admin/adminSuffix', '1', '2', '5');
-INSERT INTO `menus` VALUES ('7', '菜单管理', 'admin/menuList', '1', '18', '3');
-INSERT INTO `menus` VALUES ('9', '内容管理', '#', '0', null, '2');
-INSERT INTO `menus` VALUES ('10', '项目管理', 'admin/projectList', '1', '9', '1');
-INSERT INTO `menus` VALUES ('11', '模块管理', 'admin/moduleList', '1', '9', '2');
-INSERT INTO `menus` VALUES ('12', '信封管理', 'admin/letterList', '1', '9', '3');
-INSERT INTO `menus` VALUES ('13', '用户管理', '#', '0', null, '2');
-INSERT INTO `menus` VALUES ('14', '用户列表', 'admin/userList', '1', '13', '0');
-INSERT INTO `menus` VALUES ('15', '邀请码管理', 'admin/inviteList', '1', '13', '1');
-INSERT INTO `menus` VALUES ('16', '信封通知管理', '#', '1', '13', '2');
-INSERT INTO `menus` VALUES ('17', '系统邮箱管理', 'admin/sysEmailAdmin', '1', '2', '6');
-INSERT INTO `menus` VALUES ('18', '权限管理', '#', '0', null, '3');
+INSERT INTO `menus` VALUES ('1', '后台首页', 'admin/base', '1', '2', '0', 'backIndex');
+INSERT INTO `menus` VALUES ('2', '系统管理', '#', '0', null, '1', '');
+INSERT INTO `menus` VALUES ('3', '基本设置', 'admin/setting', '1', '2', '2', 'baseSetting');
+INSERT INTO `menus` VALUES ('4', '用户管理', 'admin/sysUserAdmin', '1', '18', '2', 'adminSetting');
+INSERT INTO `menus` VALUES ('5', '角色管理', 'admin/roleList', '1', '18', '3', 'roleSetting');
+INSERT INTO `menus` VALUES ('6', '后缀设置', 'admin/adminSuffix', '1', '2', '3', 'suffixSetting');
+INSERT INTO `menus` VALUES ('9', '内容管理', '#', '0', null, '2', null);
+INSERT INTO `menus` VALUES ('10', '项目管理', 'admin/projectList', '1', '9', '1', 'projectSetting');
+INSERT INTO `menus` VALUES ('11', '模块管理', 'admin/moduleList', '1', '9', '2', 'moduleSetting');
+INSERT INTO `menus` VALUES ('12', '信封管理', 'admin/letterList', '1', '9', '3', 'letterSetting');
+INSERT INTO `menus` VALUES ('13', '用户管理', '#', '0', null, '2', null);
+INSERT INTO `menus` VALUES ('14', '用户列表', 'admin/userList', '1', '13', '0', 'userSetting');
+INSERT INTO `menus` VALUES ('15', '邀请码管理', 'admin/inviteList', '1', '13', '1', 'inviteSetting');
+INSERT INTO `menus` VALUES ('17', '邮箱管理', 'admin/sysEmailAdmin', '1', '2', '6', 'emailSetting');
+INSERT INTO `menus` VALUES ('18', '权限管理', '#', '0', null, '3', null);
 
 -- ----------------------------
 -- Table structure for module
@@ -224,7 +223,6 @@ CREATE TABLE `role` (
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES ('1', '超级管理员', '1,2,8,6,17,3,9,10,12,11,13,16,15,14,18,4,7,5');
-INSERT INTO `role` VALUES ('2', '管理员', '1,2,3,6,17,9,10,11,12,13,14,16,15');
 
 -- ----------------------------
 -- Table structure for setting
@@ -255,7 +253,7 @@ CREATE TABLE `suffix` (
   `suffix` varchar(255) DEFAULT NULL,
   `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of suffix
@@ -286,12 +284,12 @@ INSERT INTO `suffix` VALUES ('23', 'shtml', '1');
 INSERT INTO `suffix` VALUES ('24', 'iis', '1');
 INSERT INTO `suffix` VALUES ('25', 'swf', '1');
 INSERT INTO `suffix` VALUES ('26', 'exp', '1');
-INSERT INTO `suffix` VALUES ('27', 'esp', '2');
+INSERT INTO `suffix` VALUES ('27', 'esp', '1');
 INSERT INTO `suffix` VALUES ('28', 'csp', '1');
 INSERT INTO `suffix` VALUES ('29', 'psp', '1');
 INSERT INTO `suffix` VALUES ('30', 'fsp', '1');
 INSERT INTO `suffix` VALUES ('31', 'xsp', '1');
-INSERT INTO `suffix` VALUES ('32', 'action', '1');
+INSERT INTO `suffix` VALUES ('32', 'action', '2');
 INSERT INTO `suffix` VALUES ('33', 'ftl', '1');
 INSERT INTO `suffix` VALUES ('34', 'cmd', '1');
 INSERT INTO `suffix` VALUES ('35', 'bat', '1');

@@ -86,6 +86,7 @@ public class PowerAspect {
 			List<Menus> childMenus=new ArrayList<Menus>();
 			for (Menus menu:roleMenus) {
 				if(StringUtils.isNullOrEmpty(menu.getChildMenus())){
+					childMenus.add(menu);
 					continue;
 				}
 				childMenus.addAll(menu.getChildMenus());

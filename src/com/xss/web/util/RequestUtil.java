@@ -613,6 +613,14 @@ public class RequestUtil {
 		}
 		return uri.toLowerCase();
 	}
+	public static String getURLSuffix(HttpServletRequest request) {
+		String url = request.getServletPath();
+		String[] tab = url.split("\\.");
+		if (tab.length > 1) {
+			return tab[tab.length - 1];
+		}
+		return "";
+	}
 
 	public static void main(String[] args) {
 

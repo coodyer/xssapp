@@ -49,4 +49,5 @@ public class CacheFinal {
 	public static final String IP_ADDRESS_INFO="IP_ADDRESS_INFO";
 	public static final String PAGER_COUNT_CACHE="PAGER_COUNT_CACHE";
 	public static final String SYSTEM_RUN_INFO="SYSTEM_RUN_INFO";
+	public static final String SPRING_SUFFIXS="SPRING_SUFFIXS";
 }

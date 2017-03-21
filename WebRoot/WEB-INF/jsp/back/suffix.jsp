@@ -18,7 +18,10 @@
 			<div class="am-panel am-panel-default">
 				<div class="am-panel-hd am-cf"
 					data-am-collapse="{target: '#collapse-panel-4'}">
-					网站后缀设置<span class="am-icon-chevron-down am-fr"></span>
+					网站后缀设置<span class="am-icon-chevron-down am-fr"><a
+						href="${basePath }admin/addSuffix.${defSuffix}"
+						class="am-btn am-btn-default am-round am-fr am-btn-xs"
+						style="float: right">添加后缀</a></span>
 				</div>
 				<div id="collapse-panel-4"
 					class="am-table am-table-bordered am-table-radius am-table-striped">
@@ -27,8 +30,7 @@
 						<table class="am-table am-table-bordered">
 							<tbody>
 								<tr>
-									<td  colspan="5" height="25"
-										align="center"><b>网站后缀管理</b></td>
+									<td colspan="5" height="25" align="center"><b>网站后缀管理</b></td>
 								</tr>
 								<tr>
 									<c:forEach items="${suffixList }" var="suffix"
@@ -42,6 +44,10 @@
 											</c:if> <c:if test="${suffix.status==1 }">
 												<a href="#" onclick="defaule(${suffix.id})"
 													style="color: blue">设为默认</a>
+												<a style="float: right;cursor:pointer"
+													href="javascript:remove(${suffix.id})"><img
+													src="${basePath }/assets/images/delete.png" width="13px"
+													title="删除"></a>
 											</c:if></td>
 										<c:if test="${(index.index+1)%5==0 &&index.index!=0 }">
 								</tr>
@@ -94,6 +100,28 @@
 			    dataType : 'json',  
 			    data:"id="+id,
 			    url:'${basePath}admin/defaultSuffix.${defSuffix}',  
+			    timeout:60000,  
+			    success:function(json){ 
+			    alert(json.msg); 
+			    	if(json.code==0){
+			    		location.reload(true);
+			    	}
+			    } ,
+			    error:function(){
+			    	alert("系统繁忙");
+			    }
+			});  
+		}
+	}
+	
+	
+	function remove(id){
+		if(confirm("确认进行此操作?")){
+				$.ajax({   
+			    type:"POST",  
+			    dataType : 'json',  
+			    data:"id="+id,
+			    url:'${basePath}admin/deleteSuffix.${defSuffix}',  
 			    timeout:60000,  
 			    success:function(json){ 
 			    alert(json.msg); 

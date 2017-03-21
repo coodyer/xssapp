@@ -6,21 +6,24 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("unchecked")
 public class SpringContextHelper implements ApplicationContextAware {
 	
 	private static ApplicationContext context;
 
+	@SuppressWarnings("static-access")
 	public void setApplicationContext(ApplicationContext context)
 			throws BeansException {
 		this.context = context;
 	}
 	
-	public static Object getBean(String beanName){
-		return context.getBean(beanName);
+	
+	public static <T> T getBean(String beanName){
+		return (T) context.getBean(beanName);
 	}
 	
-	public static Object getBean(Class<?> clazz){
-		return context.getBean(clazz);
+	public static <T> T getBean(Class<?> clazz){
+		return (T) context.getBean(clazz);
 	}
 
 }
