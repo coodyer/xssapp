@@ -2,14 +2,14 @@ package com.xss.web.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javassist.Modifier;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -63,6 +63,8 @@ import com.xss.web.util.RequestUtil;
 import com.xss.web.util.SimpleUtil;
 import com.xss.web.util.SpringContextHelper;
 import com.xss.web.util.StringUtils;
+
+import javassist.Modifier;
 
 @Controller
 public class AdminController extends BaseController {
@@ -738,6 +740,7 @@ public class AdminController extends BaseController {
 	@RequestMapping
 	@Power(value = "server", resType = PowerEnum.PAGE)
 	public String server(HttpServletRequest req, HttpServletResponse res) {
+		
 		String path = getPara("file");
 		if (StringUtils.isNullOrEmpty(path)) {
 			path = Thread.currentThread().getContextClassLoader()
@@ -747,23 +750,27 @@ public class AdminController extends BaseController {
 		String basePath = Thread.currentThread().getContextClassLoader()
 				.getResource("").getPath();
 		basePath = new File(basePath).getPath().replace("\\", "/");
+		basePath=URLDecoder.decode(basePath);
+		path=URLDecoder.decode(path);
 		if (!path.startsWith(basePath)) {
 			return DIR + "server_list";
 		}
 		File[] files = new File(path).listFiles();
 		List<WsFileEntity> fileEntitys = FileUtils.parseWsFile(files);
-		fileEntitys = (List<WsFileEntity>) PropertUtil.parsListSeq(fileEntitys,
-				"suffix");
+		fileEntitys = (List<WsFileEntity>) PropertUtil.parsListSeq(fileEntitys, "suffix",true);
+		fileEntitys = (List<WsFileEntity>) PropertUtil.parsListSeq(fileEntitys, "path");
+		fileEntitys = (List<WsFileEntity>) PropertUtil.parsListSeq(fileEntitys, "type");
 		setAttribute("files", fileEntitys);
-		setAttribute("currFile", new File(path).getPath());
+		String currFile = new File(path).getPath() + "/";
+		if (SimpleUtil.isWindows()) {
+			currFile = currFile.replace("/", "\\");
+		}
+		System.out.println(currFile);
+		setAttribute("currFile", currFile);
 		setAttribute("parentFile", new File(path).getParent());
-		/**
-		 * 加载我的监听列表
-		 */
-		List<String> keys = CacheTimerHandler
-				.getKeysFuzz(CacheFinal.SYSTEM_RUN_INFO);
-		setAttribute("keys", keys);
+		keepParas();
 		return DIR + "server_list";
+		
 	}
 
 	@RequestMapping
@@ -807,7 +814,47 @@ public class AdminController extends BaseController {
 			return null;
 		}
 	}
-
+	@Power(value = "server", resType = PowerEnum.JSON)
+	@RequestMapping
+	public void modifyField(HttpServletRequest req, HttpServletResponse res) {
+		CtClassEntity clazz=loadClassEntity();
+		String fieldName=getPara("fieldName");
+		String value=getPara("fieldValue");
+		Object bean=null;
+		try {
+			bean = SpringContextHelper.getBean(clazz.getSourceClass());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		for(CtBeanEntity field:clazz.getFields()){
+			try {
+				System.out.println(field.getFieldName()+":"+fieldName);
+				if(field.getFieldName().equals(fieldName)){
+					Field sourceField=field.getSourceField();
+					sourceField.setAccessible(true);
+					try {
+						Field modifiersField = Field.class.getDeclaredField("modifiers");
+						modifiersField.setAccessible(true);
+						modifiersField.set(sourceField, sourceField.getModifiers() & ~Modifier.FINAL);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if(field.getIsStatic()==true){
+						bean=null;
+					}
+					sourceField.set(bean, PropertUtil.parseValue(value, field.getFieldType()));
+				printMsg(res, new MsgEntity(-1,"操作成功"));
+				return;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				printMsg(res,new MsgEntity(-1,"修改失败"));
+				return;
+			}
+		}
+		printMsg(res,new MsgEntity(-1,"字段不存在"));
+		return;
+	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping
 	@Power(value = "server", resType = PowerEnum.PAGE)
@@ -831,7 +878,6 @@ public class AdminController extends BaseController {
 		return DIR + "server_monitor";
 	}
 
-	@SuppressWarnings("null")
 	@RequestMapping
 	@Power(value = "server", resType = PowerEnum.JSON)
 	public void serverDebug(HttpServletRequest req, HttpServletResponse res) {

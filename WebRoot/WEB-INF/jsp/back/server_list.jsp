@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld"%>
 <%@ taglib prefix="fmt" uri="/WEB-INF/tld/fmt.tld"%>
+<%@ taglib prefix="fn" uri="/WEB-INF/tld/fn.tld"%>
 <!doctype html>
 <html class="no-js">
 <head>
@@ -79,12 +80,12 @@
 								<tr>
 									<td><c:if test="${file.type==0 }">
 											<a href="?file=${file.path }"> <img width="30px"
-												src="${basePath }/assets/img/file.png" />${file.path }
+												src="${basePath }/assets/img/file.png" />${fn:replace(file.path, currFile, '')}
 											</a>
 										</c:if> <c:if test="${file.type!=0 }">
 											<a href="fileInfo.${defSuffix }?file=${file.path }"> <img
 												width="30px"
-												src="${basePath }/assets/img/${file.suffix=='class'?'java':'txt' }.png" />${file.path }
+												src="${basePath }/assets/img/${file.suffix=='class'?'java':'txt' }.png" />${fn:replace(file.path, currFile, '')}
 											</a>
 										</c:if></td>
 									<td>${file.size==null?'-':file.size }</td>

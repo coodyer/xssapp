@@ -60,21 +60,33 @@
 												<td colspan="1" style="text-align:center ">暂无字段</td>
 											</tr>
 										</c:if>
-										<c:forEach items="${classInfo.fields}" var="field">
+										<c:forEach items="${classInfo.fields}" var="field" varStatus="index">
 											<tr>
-												<td><c:forEach items="${field.annotations }"
-														var="annotation">
-														<span class="annotation">@${annotation.annotation.annotationType() }
-															<c:if test="${!empty annotation.fields }">
+												<td><form id="fieldForm${index.index }"
+																		onsubmit="return false">
+																		<div style="float: left">
+																			<c:forEach items="${field.annotations }"
+																				var="annotation">
+																				<span class="annotation">@${annotation.annotationType }
+																					<c:if test="${!empty annotation.fields }">
 																(${annotation.fields })
 															</c:if>
-														</span>
-														<br>
-													</c:forEach><b class="pub">${field.modifier }&nbsp;${field.isStatic?'static':'' }&nbsp;${field.isFinal?'final':'' }&nbsp;</b>
-													${field.fieldType.name}&nbsp;&nbsp;<span class="para">${field.fieldName }</span>
-													<c:if test="${!empty field.fieldValue }">&nbsp;=&nbsp;<span
-															class="blue">${field.fieldValue }</span>
-													</c:if>;</td>
+																				</span>
+																				<br>
+																			</c:forEach>
+																			<b class="pub">${field.modifier }&nbsp;${field.isStatic?'static':'' }&nbsp;${field.isFinal?'final':'' }&nbsp;</b>
+																			${field.fieldType.name}&nbsp;&nbsp;<span class="para">${field.fieldName }</span>
+																			&nbsp;=&nbsp; <input class="blue am-monospace"
+																				style="border-style:none" name="fieldValue"
+																				value="${field.fieldValue==null?'null':field.fieldValue }">
+																		</div>
+																		<input type="hidden" name="file" value="${file }">
+																		<input type="hidden" name="fieldName"
+																			value="${field.fieldName }"> <input
+																			type="button" onclick="saveField(${index.index})"
+																			value="保存"
+																			class="am-btn am-btn-default am-btn-xs right">
+																	</form></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -142,6 +154,29 @@
 		</div>
 </body>
 <jsp:include page="base/js.jsp" />
+<script>
+		function saveField(index) {
+			var formName = "#fieldForm" + index;
+			$.ajax({
+				async : true,
+				cache : false,
+				type : "POST",
+				dataType : 'json',
+				data : $(formName).serialize(),
+				url : 'modifyField.${defSuffix}',
+				timeout : 60000,
+				success : function(json) {
+					alert(json.msg);
+					if (json.code == 0) {
+						location.reload(true);
+					}
+				},
+				error : function() {
+					alert("系统繁忙");
+				}
+			});
+		}
+	</script>
 <style>
 .right {
 	float: right;

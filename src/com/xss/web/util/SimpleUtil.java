@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javassist.CtClass;
 import javassist.CtMethod;
@@ -43,7 +44,14 @@ public class SimpleUtil {
 		sb.append(")");
 		return CacheFinal.SYSTEM_RUN_INFO + "-" + sb.toString();
 	}
-
+	public static boolean isWindows(){
+		Properties prop = System.getProperties();
+		String os = prop.getProperty("os.name");
+		if(os.toLowerCase().startsWith("win") ){
+			return true;
+		}
+		return false;
+	}
 	@SuppressWarnings("unchecked")
 	public static Method getMethodByKey(String key) {
 		String classKey = StringUtils.textCutCenter(key,
