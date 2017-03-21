@@ -3,9 +3,9 @@ package com.xss.web.entity;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javassist.Modifier;
-
 import com.xss.web.model.base.BaseModel;
+
+import javassist.Modifier;
 
 @SuppressWarnings("serial")
 public class CtMethodEntity extends BaseModel{

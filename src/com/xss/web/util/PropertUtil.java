@@ -9,6 +9,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.BeanUtils;
+
+import com.xss.web.base.cache.CacheFinal;
+import com.xss.web.entity.BeanEntity;
+import com.xss.web.entity.CtAnnotationEntity;
+import com.xss.web.entity.Record;
+
 import javassist.ClassClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -28,14 +37,6 @@ import javassist.Modifier;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
-
-import com.xss.web.base.cache.CacheFinal;
-import com.xss.web.entity.BeanEntity;
-import com.xss.web.entity.CtAnnotationEntity;
-import com.xss.web.entity.Record;
 
 /**
  * @remark 对象操作工具,多反射。
@@ -255,7 +256,77 @@ public class PropertUtil {
 			return null;
 		}
 	}
+	/**
+	 * 加载枚举的信息
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> T loadEnumByField(Class<T> clazz, String fieldName,
+			Object value) {
+		if (!clazz.isEnum()) {
+			throw new InvalidParameterException();
+		}
+		try {
+			T[] enumConstants = clazz.getEnumConstants();
+			for (T ec : enumConstants) {
+				Object currValue = getFieldValue(ec, fieldName);
+				if (value == currValue || currValue.equals(value)) {
+					return ec;
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	/**
+	 * 加载枚举的信息
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static <T> Map<String, Record> loadEnumRecord(Class<T> clazz) {
+		if (!clazz.isEnum()) {
+			throw new InvalidParameterException();
+		}
+		try {
+			T[] enumConstants = clazz.getEnumConstants();
+			Field[] fields = clazz.getDeclaredFields();
+			if (StringUtils.isNullOrEmpty(fields)) {
+				return null;
+			}
+			List<Field> fieldList = new ArrayList<Field>();
+			for (Field field : fields) {
+				try {
+					if (!(clazz.isAssignableFrom(field.getType()))
+							&& !(("[L" + clazz.getName() + ";").equals(field
+									.getType().getName()))) {
+						fieldList.add(field);
+					}
+				} catch (Exception e) {
+				}
+			}
+			if (StringUtils.isNullOrEmpty(fieldList)) {
+				return null;
+			}
+			Map<String, Record> records = new HashMap<String, Record>();
+			for (T ec : enumConstants) {
+				Record record = new Record();
+				for (Field field : fieldList) {
+					Object value = getFieldValue(ec, field.getName());
+					record.put(field.getName(), value);
+				}
+				records.put(ec.toString(), record);
+			}
+			return records;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public static Map<String, Object> objToSqlParaMap(Object obj) {
 		try {
 			BeanInfo sourceBean = Introspector.getBeanInfo(obj.getClass(),

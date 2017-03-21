@@ -1,10 +1,11 @@
 package com.xss.web.entity;
 
 import java.util.List;
-
-import javassist.Modifier;
+import java.util.Map;
 
 import com.xss.web.model.base.BaseModel;
+
+import javassist.Modifier;
 
 @SuppressWarnings("serial")
 public class CtClassEntity extends BaseModel {
@@ -16,7 +17,6 @@ public class CtClassEntity extends BaseModel {
 	private List<CtBeanEntity> fields;
 
 	private List<CtMethodEntity> methods;
-
 
 	private Boolean isAbstract = false;
 	
@@ -33,6 +33,9 @@ public class CtClassEntity extends BaseModel {
 	private Class<?> superClass;
 	
 	private Class<?> [] interfaces;
+	
+	private Map<String,Record> enumInfo;
+	
 
 	public Boolean getIsFinal() {
 		return isFinal;
@@ -154,4 +157,13 @@ public class CtClassEntity extends BaseModel {
 		this.methods = methods;
 	}
 
+
+	public Map<String, Record> getEnumInfo() {
+		return enumInfo;
+	}
+
+
+	public void setEnumInfo(Map<String, Record> enumInfo) {
+		this.enumInfo = enumInfo;
+	}
 }

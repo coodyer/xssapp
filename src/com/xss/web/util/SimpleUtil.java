@@ -1,9 +1,12 @@
 package com.xss.web.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -11,18 +14,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.xss.web.base.cache.CacheFinal;
+import com.xss.web.entity.CtAnnotationEntity;
+import com.xss.web.entity.CtBeanEntity;
+import com.xss.web.entity.CtClassEntity;
+import com.xss.web.entity.CtMethodEntity;
+
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.Modifier;
 import javassist.bytecode.CodeAttribute;
 import javassist.bytecode.LocalVariableAttribute;
 import javassist.bytecode.MethodInfo;
-
-import com.xss.web.base.cache.CacheFinal;
-import com.xss.web.entity.CtAnnotationEntity;
-import com.xss.web.entity.CtBeanEntity;
-import com.xss.web.entity.CtClassEntity;
-import com.xss.web.entity.CtMethodEntity;
 
 public class SimpleUtil {
 
@@ -205,14 +208,34 @@ public class SimpleUtil {
 	public static CtClassEntity getClassEntity(Class<?> clazz) {
 		CtClassEntity entity = new CtClassEntity();
 		entity.setSourceClass(clazz);
-		List<CtBeanEntity> fields = getBeanFields(clazz);
+		Object obj=null;
+		try {
+			obj=SpringContextHelper.getBean(clazz);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		if(obj==null){
+			obj=clazz;
+		}
+		List<CtBeanEntity> fields = getBeanFields(obj);
 		entity.setFields(fields);
 		entity.setAnnotations(getCtAnnotations(clazz));
 		entity.setName(clazz.getName());
-		Method[] methods = clazz.getDeclaredMethods();
+		if (Modifier.isInterface(clazz.getModifiers())) {
+			try {
+				List<Class<?>> apiClazzs = getAllAssignedClass(clazz);
+				if (!StringUtils.isNullOrEmpty(apiClazzs)) {
+					clazz = apiClazzs.get(0);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		List<Method> methods = loadMethods(clazz);
 		List<CtMethodEntity> ctMethods = new ArrayList<CtMethodEntity>();
 		for (Method method : methods) {
 			CtMethodEntity ctMethod = new CtMethodEntity();
+			System.out.println(method.getName());
 			if (!StringUtils.isNullOrEmpty(method.getDeclaredAnnotations())) {
 				ctMethod.setAnnotations(getCtAnnotations(method));
 			}
@@ -229,14 +252,109 @@ public class SimpleUtil {
 			ctMethod.setKey(getMethodKey(method));
 			ctMethods.add(ctMethod);
 		}
+		if(!StringUtils.isNullOrEmpty(ctMethods)){
+			ctMethods=(List<CtMethodEntity>) PropertUtil.parsListSeq(ctMethods, "name");
+		}
 		entity.setMethods(ctMethods);
 		entity.setIsAbstract(Modifier.isAbstract(clazz.getModifiers()));
-		entity.setIsEnum(Modifier.isEnum(clazz.getModifiers()));
+		entity.setIsEnum(Enum.class.isAssignableFrom(clazz));
 		entity.setIsInterface(Modifier.isInterface(clazz.getModifiers()));
 		entity.setModifier(clazz.getModifiers());
 		entity.setIsFinal(Modifier.isFinal(clazz.getModifiers()));
 		entity.setSuperClass(clazz.getSuperclass());
 		entity.setInterfaces(clazz.getInterfaces());
+		if(Enum.class.isAssignableFrom(clazz)){
+			entity.setEnumInfo(PropertUtil.loadEnumRecord(clazz));
+		}
 		return entity;
 	}
+	
+	public static List<Method> loadMethods(Class<?> clazz) {
+		List<Method> methods = new ArrayList<Method>(
+				Arrays.<Method> asList(clazz.getDeclaredMethods()));
+		if (!StringUtils.isNullOrEmpty(clazz.getSuperclass())) {
+			List<Method> methodTmps = loadMethods(clazz.getSuperclass());
+			if (!StringUtils.isNullOrEmpty(methodTmps)) {
+				PropertUtil.setFieldValues(methodTmps, "clazz", clazz);
+				methods.addAll(methodTmps);
+			}
+		}
+		return methods;
+	}
+
+	public static List<Method> loadSourceMethods(Class<?> clazz) {
+		List<Method> methods = new ArrayList<Method>(
+				Arrays.<Method> asList(clazz.getDeclaredMethods()));
+		if (!StringUtils.isNullOrEmpty(clazz.getSuperclass())) {
+			List<Method> methodTmps = loadMethods(clazz.getSuperclass());
+			if (!StringUtils.isNullOrEmpty(methodTmps)) {
+				methods.addAll(methodTmps);
+			}
+		}
+		return methods;
+	}
+	/**
+	 * 获取同一路径下所有子类或接口实现类
+	 * 
+	 * @param intf
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static List<Class<?>> getAllAssignedClass(Class<?> cls)
+			throws IOException, ClassNotFoundException {
+		List<Class<?>> classes = new ArrayList<Class<?>>();
+		for (Class<?> c : getClasses(cls)) {
+			if (cls.isAssignableFrom(c) && !cls.equals(c)) {
+				classes.add(c);
+			}
+		}
+		return classes;
+	}
+	
+	/**
+	 * 取得当前类路径下的所有类
+	 * 
+	 * @param cls
+	 * @return
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static List<Class<?>> getClasses(Class<?> cls) throws IOException,
+			ClassNotFoundException {
+		String pk = cls.getPackage().getName();
+		String path = pk.replace('.', '/');
+		ClassLoader classloader = Thread.currentThread()
+				.getContextClassLoader();
+		URL url = classloader.getResource(path);
+		return getClasses(new File(url.getFile()), pk);
+	}
+
+	/**
+	 * 迭代查找类
+	 * 
+	 * @param dir
+	 * @param pk
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
+	private static List<Class<?>> getClasses(File dir, String pk)
+			throws ClassNotFoundException {
+		List<Class<?>> classes = new ArrayList<Class<?>>();
+		if (!dir.exists()) {
+			return classes;
+		}
+		for (File f : dir.listFiles()) {
+			if (f.isDirectory()) {
+				classes.addAll(getClasses(f, pk + "." + f.getName()));
+			}
+			String name = f.getName();
+			if (name.endsWith(".class")) {
+				classes.add(Class.forName(pk + "."
+						+ name.substring(0, name.length() - 6)));
+			}
+		}
+		return classes;
+	}
+
 }

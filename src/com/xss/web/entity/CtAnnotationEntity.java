@@ -8,12 +8,22 @@ import com.xss.web.model.base.BaseModel;
 @SuppressWarnings("serial")
 public class CtAnnotationEntity extends BaseModel{
 
-	
-	private Class<?> clazz;
+private Class<?> clazz;
 	
 	private Map<String,Object> fields;
 	
 	private Annotation annotation;
+	
+	private Class<?> annotationType ;
+	
+
+	public Class<?> getAnnotationType() {
+		return annotationType;
+	}
+
+	public void setAnnotationType(Class<?> annotationType) {
+		this.annotationType = annotationType;
+	}
 
 	public Annotation getAnnotation() {
 		return annotation;
@@ -21,6 +31,7 @@ public class CtAnnotationEntity extends BaseModel{
 
 	public void setAnnotation(Annotation annotation) {
 		this.annotation = annotation;
+		this.annotationType=annotation.annotationType();
 	}
 
 	public Class<?> getClazz() {
@@ -38,6 +49,5 @@ public class CtAnnotationEntity extends BaseModel{
 	public void setFields(Map<String, Object> fields) {
 		this.fields = fields;
 	}
-	
 	
 }
