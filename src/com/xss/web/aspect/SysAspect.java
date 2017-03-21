@@ -26,7 +26,7 @@ import com.xss.web.util.StringUtils;
 @Component
 public class SysAspect {
 	@SuppressWarnings("unchecked")
-	@Around("execution(* com..*.*(..)))")
+	@Around("execution(* com.xss.web..*.*(..)))")
 	public Object serviceMonitor(ProceedingJoinPoint pjp) throws Throwable {
 		StopWatch sw = new StopWatch(getClass().getSimpleName());
 		try {
@@ -74,7 +74,7 @@ public class SysAspect {
 	 * @return
 	 * @throws Throwable
 	 */
-	@Around("execution(* com..*.*(..)) && @annotation(com.xss.web.annotation.DeBug)")
+	@Around("@annotation(com.xss.web.annotation.DeBug)")
 	public Object deBugMonitor(ProceedingJoinPoint pjp) throws Throwable {
 		StopWatch sw = new StopWatch(getClass().getSimpleName());
 		try {
