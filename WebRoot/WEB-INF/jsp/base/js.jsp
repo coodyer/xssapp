@@ -75,7 +75,20 @@ fieldset {
 	margin: 0 0 0rem;
     margin-top: 0.2rem;
 }
+address, blockquote, dl, fieldset, figure, hr, ol, p, pre, ul {
+    margin: 0 0 0.2rem;
+}
 textarea{
 font-size:1.2rem;
+}
+.am-form-group {
+    margin-bottom: 0.2rem;
+}
+.am-list>li>a {
+    display: block;
+    padding: 0.2rem 0;
+}
+.left{
+float:left;
 }
 </style>
