@@ -13,7 +13,7 @@
 				<div class="am-g">
 					<div class="am-u-md-12">
 						<div class="am-panel am-panel-default">
-							<div class="am-panel-hd">创建项目</div>
+							<div class="am-panel-hd"><small>创建项目</small></div>
 							<div class="am-panel-bd">
 								<form action="" class="am-form" id="dataform" data-am-validator>
 									<input type="hidden" value=${project.id } name="id">

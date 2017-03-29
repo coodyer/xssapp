@@ -21,7 +21,7 @@ static.am-list-border>li {
 margin-bottom: 10px;}
 
 .am-form input[type=number], .am-form input[type=search], .am-form input[type=text], .am-form input[type=password], .am-form input[type=datetime], .am-form input[type=datetime-local], .am-form input[type=date], .am-form input[type=month], .am-form input[type=time], .am-form input[type=week], .am-form input[type=email], .am-form input[type=url], .am-form input[type=tel], .am-form input[type=color], .am-form select, .am-form textarea, .am-form-field {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 td{max-width: 500px;word-break:break-all;min-width: 100px;}
 .admin-content{
@@ -64,11 +64,18 @@ span {
 	line-height: 2.0rem;
 }
 .am-container{
-	height:80%;
+	min-height:80%;
 }
 .am-btn.am-round {
     border-radius: 0px;
     font-size: 1.0rem;
     height:2rem;
+}
+fieldset {
+	margin: 0 0 0rem;
+    margin-top: 0.2rem;
+}
+textarea{
+font-size:1.2rem;
 }
 </style>
