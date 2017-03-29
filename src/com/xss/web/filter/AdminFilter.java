@@ -71,7 +71,11 @@ public class AdminFilter implements Filter {
 		if (uris.length == 1) {
 			return "";
 		}
-		uris = uris[uris.length - 1].split("\\.");
+		try {
+			uris = uris[uris.length - 1].split("\\.");
+		} catch (Exception e) {
+			return "";
+		}
 		return uris[0];
 	}
 
