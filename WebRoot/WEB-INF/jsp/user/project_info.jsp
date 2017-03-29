@@ -18,7 +18,7 @@
 								<form action="" class="am-form" id="dataform" data-am-validator>
 									<input type="hidden" value=${project.id } name="id">
 									<fieldset>
-										<legend>项目及代码</legend>
+										<legend><small>项目及代码</small></legend>
 										<div class="am-form-group">
 											<label for="doc-vld-name-2"><small>项目名称：</small></label> <input type="text"
 												id="doc-vld-name-2" name="title" datatype="*1-48"
