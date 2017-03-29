@@ -15,7 +15,7 @@
 		<div class="am-panel-bd am-collapse am-in" id="collapse-panel-1">
 			<ul class="am-list admin-content-file" style="text-align: left">
 				<c:if test="${empty projects }">
-					<li  class="moduleLi"><small>暂无数据</small></li>
+					<li  class="moduleLi"><a><small>暂无数据</small></a></li>
 				</c:if>
 				<c:forEach items="${projects }" var="project">
 					<li class="moduleLi"><a href="${basePath }user/projectEdit.${defSuffix}?id=${project.id}"><small>${project.title }</small></a></li>
@@ -37,7 +37,7 @@
 		<div class="am-panel-bd am-collapse am-in" id="collapse-panel-2">
 			<ul class="am-list admin-content-file" style="text-align: left">
 				<c:if test="${empty userModules }">
-					<li  class="moduleLi"><small>暂无数据</small></li>
+					<li  class="moduleLi"><a><small>暂无数据</small></a></li>
 				</c:if>
 				<c:forEach items="${userModules }" var="module">
 					<li  class="moduleLi"><a
@@ -55,7 +55,7 @@
 		<div class="am-panel-bd am-collapse" id="collapse-panel-3">
 			<ul class="am-list admin-content-file" style="text-align: left">
 				<c:if test="${empty sysModules }">
-					<li  class="moduleLi"><small>暂无数据</small></li>
+					<li  class="moduleLi"><a><small>暂无数据</small></a></li>
 				</c:if>
 				<c:forEach items="${sysModules }" var="module">
 				<c:if test="${(empty module.user) ||module.user.id!=curr_login_user.id }">

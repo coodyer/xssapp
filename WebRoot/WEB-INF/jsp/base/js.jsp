@@ -12,7 +12,7 @@ zr.js"></script>
 <script src="${basePath}assets/js/app.js"></script>
 <style>
 body {
-	font-size: 12px;word-break:break-all;
+	font-size: 1.2rem;word-break:break-all;
 }
 static.am-list-border>li {
     padding: 0.2rem;
@@ -53,5 +53,22 @@ td{
 }
 .navNext{
 	    font-size: 1.4rem;
+}
+tr{
+	font-size: 1.2rem;
+}
+span {
+	font-size: 1.0rem;
+}
+.moduleLi {
+	line-height: 2.0rem;
+}
+.am-container{
+	height:80%;
+}
+.am-btn.am-round {
+    border-radius: 0px;
+    font-size: 1.0rem;
+    height:2rem;
 }
 </style>
