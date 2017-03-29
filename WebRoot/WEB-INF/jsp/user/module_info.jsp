@@ -13,12 +13,11 @@
 				<div class="am-g">
 					<div class="am-u-md-12">
 						<div class="am-panel am-panel-default">
-							<div class="am-panel-hd">创建模块</div>
 							<div class="am-panel-bd">
 								<form action="" class="am-form" id="dataform" data-am-validator>
 									<input type="hidden" value=${module.id } name="id">
 									<fieldset>
-										<legend>模块及代码</legend>
+										<legend><small>模块及代码</small></legend>
 										<div class="am-form-group">
 											<label for="doc-vld-name-2"><small>模块名称：</small></label> <input type="text"
 												id="doc-vld-name-2" name="title" datatype="*1-48"
