@@ -18,10 +18,10 @@
 			<div class="am-panel am-panel-default">
 				<div class="am-panel-hd am-cf"
 					data-am-collapse="{target: '#collapse-panel-4'}">
-					网站后缀设置<span class="am-icon-chevron-down am-fr"><a
+					网站后缀设置<a
 						href="${basePath }admin/addSuffix.${defSuffix}"
 						class="am-btn am-btn-default am-round am-fr am-btn-xs"
-						style="float: right">添加后缀</a></span>
+						style="float: right">添加后缀</a>
 				</div>
 				<div id="collapse-panel-4"
 					class="am-table am-table-bordered am-table-radius am-table-striped">
@@ -71,6 +71,11 @@
 		</div>
 	</form>
 </body>
+<style>
+.am-btn.am-round {
+    border-radius: 1px;
+}
+</style>
 <jsp:include page="base/js.jsp" />
 <script type="text/javascript">
 	function update(){
