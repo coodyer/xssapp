@@ -27,7 +27,6 @@ import com.xss.web.model.LetterParas;
 import com.xss.web.model.Module;
 import com.xss.web.model.Project;
 import com.xss.web.model.User;
-import com.xss.web.util.ConcurrentUtil;
 import com.xss.web.util.EmailSenderUtil;
 import com.xss.web.util.EncryptionUtil;
 import com.xss.web.util.JUUIDUtil;

@@ -860,11 +860,13 @@ public class AdminController extends BaseController {
 	@Power(value = "server", resType = PowerEnum.PAGE)
 	public String serverMonitor(HttpServletRequest req, HttpServletResponse res) {
 		keepParas();
-		CtClassEntity classEntity = loadClassEntity();
 		String key = getPara("key");
-		CtMethodEntity method = (CtMethodEntity) PropertUtil.getObjectByList(
-				classEntity.getMethods(), "key", key);
-		setAttribute("method", method);
+		CtClassEntity classEntity = loadClassEntity();
+		if(classEntity!=null){
+			CtMethodEntity method = (CtMethodEntity) PropertUtil.getObjectByList(
+					classEntity.getMethods(), "key", key);
+			setAttribute("method", method);
+		}
 		setAttribute("isRun", 0);
 		if (CacheTimerHandler.contains(key)) {
 			setAttribute("isRun", 1);
