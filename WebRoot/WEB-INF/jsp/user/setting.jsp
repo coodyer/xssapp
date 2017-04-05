@@ -20,11 +20,11 @@
 										<legend><small>个人设置</small></legend>
 										<div class="am-form-group am-form-success">
 											<label for="doc-vld-name-2" class="left"><small>用户邮箱：</small></label>
-											 <input type="text" id="doc-vld-name-2" name="title" datatype="*1-48" errormsg="请输入正确的邮箱" sucmsg="输入正确" nullmsg="请输入邮箱" placeholder="输入邮箱称（至少 1 个字符）" value="" class="Validform_error am-field-valid">
+											 <input type="text" id="doc-vld-name-2" name="email" datatype="*1-48" errormsg="请输入正确的邮箱" sucmsg="输入正确" nullmsg="请输入项目名" placeholder="输入项目名称（至少 1 个字符）" value="${curr_login_user.email}" class="Validform_error am-field-valid">
 										</div>
 										<div class="am-form-group">
 											<label for="doc-vld-ta-2"  class="left"><small>用户手机：</small></label>
-											 <input type="text" id="doc-vld-name-2" name="title" placeholder="请输入手机号" datatype="m" errormsg="请输入正确的手机号" sucmsg="输入正确" nullmsg="请输入手机号"  class="Validform_error am-field-valid">
+											 <input type="text" id="doc-vld-name-2" name="mobile" placeholder="请输入手机号" datatype="m" errormsg="请输入正确的手机号" sucmsg="输入正确" nullmsg="请输入手机号"  class="Validform_error am-field-valid" value="${curr_login_user.mobile}">
 										</div>
 										<div class="am-form-group" ><br></div>
 										<div class="am-form-group" >

@@ -36,7 +36,7 @@ public class AdminFilter implements Filter {
 		if (uri.equals("login") || uri.equals("doLogin")) {
 			arg2.doFilter(arg0, arg1);
 			return;
-		}
+		} 
 		Admin admin = (Admin) RequestUtil.getAdmin(request);
 		if (RequestUtil.isAdminLogin(request)) {
 			getRoleMenus(request, admin.getRole().getId());

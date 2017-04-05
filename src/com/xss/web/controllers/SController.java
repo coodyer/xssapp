@@ -81,6 +81,7 @@ public class SController extends BaseController {
 		try {
 			doApi(paraMap, referer, ip, project, basePath);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		res.setStatus(404);
 	}
