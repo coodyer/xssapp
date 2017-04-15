@@ -12,14 +12,12 @@ ce-width, initial-scale=1">
 <meta name="keywords" content="${setting.keywords }" />
 <meta name="description" content="${setting.description }" />
 <!-- Bootstrap Core CSS -->
-<link href="${basePath}assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="${basePath}assets/css/landing-page.css" rel="stylesheet">
 <!-- Custom Fonts -->
 <link href="${basePath}assets/css/font-awesome.min.css" rel="stylesheet"
 	type="text/css">
-<link rel="alternate icon" type="image/png"
-	href="${basePath}assets/i/favicon.ico">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -231,9 +229,9 @@ ce-width, initial-scale=1">
 		</div>
 	</footer>
 	<!-- jQuery -->
-	<script src="${basePath}assets/js/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 	<!-- Bootstrap Core JavaScript -->
-	<script src="${basePath}assets/js/bootstrap.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </body>
 	<style>
 	
